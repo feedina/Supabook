@@ -1,0 +1,1401 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nabila Streams - Platform Video & Musik Terdepan</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+        color: #ffffff;
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      /* Header Styles */
+      .app-header {
+        background: linear-gradient(
+          90deg,
+          #ff2e63 0%,
+          #fb5283 50%,
+          #ff6b9d 100%
+        );
+        padding: 1rem 0;
+        box-shadow: 0 4px 20px rgba(255, 46, 99, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .logo h1 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .logo h1:hover {
+        transform: scale(1.05);
+      }
+
+      .search-bar {
+        flex: 1;
+        max-width: 500px;
+        display: flex;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+      }
+
+      .search-input {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        background: transparent;
+        color: white;
+        font-size: 1rem;
+      }
+
+      .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .search-btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .search-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .action-btn,
+      .admin-btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .action-btn:hover,
+      .admin-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .admin-btn {
+        background: linear-gradient(45deg, #ffd700, #ffed4e);
+        color: #000;
+      }
+
+      /* Navigation Styles */
+      .main-nav {
+        background: rgba(26, 26, 26, 0.95);
+        backdrop-filter: blur(20px);
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 46, 99, 0.2);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        padding: 0 2rem;
+        flex-wrap: wrap;
+      }
+
+      .nav-btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .nav-btn:hover {
+        color: #ff2e63;
+        background: rgba(255, 46, 99, 0.1);
+      }
+
+      .nav-btn.active {
+        color: #ff2e63;
+        background: rgba(255, 46, 99, 0.2);
+      }
+
+      .nav-btn.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30px;
+        height: 3px;
+        background: #ff2e63;
+        border-radius: 2px;
+      }
+
+      /* Main Content */
+      .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        width: 100%;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, #ff2e63, #fb5283);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      /* Video/Music Card Styles */
+      .content-card {
+        background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 46, 99, 0.1);
+      }
+
+      .content-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(255, 46, 99, 0.2);
+        border-color: rgba(255, 46, 99, 0.3);
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .video-container video,
+      .video-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card-info {
+        padding: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #fff;
+      }
+
+      .card-description {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .card-stats {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 1rem;
+      }
+
+      .card-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .card-btn {
+        background: rgba(255, 46, 99, 0.2);
+        border: 1px solid rgba(255, 46, 99, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .card-btn:hover {
+        background: rgba(255, 46, 99, 0.4);
+        transform: translateY(-1px);
+      }
+
+      .genre-tag {
+        background: linear-gradient(45deg, #ff2e63, #fb5283);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+        margin: 0.5rem 0;
+      }
+
+      /* Form Styles */
+      .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+        border-radius: 25px;
+        padding: 2rem;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 46, 99, 0.2);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+      }
+
+      .form-input,
+      .form-textarea,
+      .form-select {
+        width: 100%;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        color: white;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        border-color: #ff2e63;
+        box-shadow: 0 0 0 3px rgba(255, 46, 99, 0.1);
+        outline: none;
+      }
+
+      .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .form-btn {
+        background: linear-gradient(45deg, #ff2e63, #fb5283);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      .form-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(255, 46, 99, 0.3);
+      }
+
+      /* Profile Styles */
+      .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+        border-radius: 25px;
+        padding: 2rem;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #ff2e63, #fb5283);
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+      }
+
+      .profile-stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #ff2e63;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Admin Panel Styles */
+      .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .admin-card {
+        background: rgba(255, 46, 99, 0.1);
+        padding: 1.5rem;
+        border-radius: 15px;
+        text-align: center;
+        border: 1px solid rgba(255, 46, 99, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .admin-card:hover {
+        background: rgba(255, 46, 99, 0.2);
+        transform: translateY(-4px);
+      }
+
+      .admin-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Notification Styles */
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border-left: 4px solid #28a745;
+        z-index: 3000;
+        display: none;
+        max-width: 300px;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      .notification.success {
+        border-left-color: #28a745;
+      }
+
+      .notification.error {
+        border-left-color: #dc3545;
+      }
+
+      .notification.warning {
+        border-left-color: #ffc107;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Footer */
+      .app-footer {
+        background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+        margin-top: 3rem;
+        border-top: 1px solid rgba(255, 46, 99, 0.2);
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h3,
+      .footer-section h4 {
+        color: #ff2e63;
+        margin-bottom: 1rem;
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer-section a:hover {
+        color: #ff2e63;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .search-bar {
+          order: 3;
+          max-width: 100%;
+        }
+
+        .header-actions {
+          order: 2;
+          justify-content: center;
+        }
+
+        .nav-container {
+          gap: 0.5rem;
+        }
+
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .profile-stats {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .admin-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-content {
+          padding: 1rem;
+        }
+
+        .form-container,
+        .profile-container {
+          padding: 1.5rem;
+          margin: 0 1rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+      }
+
+      /* Loading prevention */
+      .no-loading {
+        opacity: 1 !important;
+        display: block !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="no-loading">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-content">
+          <div class="logo">
+            <h1 onclick="showPage('home')">Nabila Streams 🎵</h1>
+          </div>
+
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Cari video, musik, artis..."
+              class="search-input"
+              onkeyup="searchContent(this.value)"
+            />
+            <button
+              class="search-btn"
+              onclick="searchContent(document.querySelector('.search-input').value)"
+            >
+              🔍
+            </button>
+          </div>
+
+          <div class="header-actions">
+            <button onclick="showPage('upload')" class="action-btn">
+              📤 Upload
+            </button>
+            <button onclick="showPage('profile')" class="action-btn">
+              👤 Profil
+            </button>
+            <button onclick="showAdminLogin()" class="admin-btn">
+              👑 Admin
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="main-nav">
+        <div class="nav-container">
+          <button
+            onclick="showPage('home')"
+            class="nav-btn active"
+            id="nav-home"
+          >
+            🏠 Beranda
+          </button>
+          <button
+            onclick="showPage('gallery')"
+            class="nav-btn"
+            id="nav-gallery"
+          >
+            🖼️ Galeri
+          </button>
+          <button
+            onclick="showPage('submit-music')"
+            class="nav-btn"
+            id="nav-submit"
+          >
+            🎵 Kirim Musik
+          </button>
+          <button
+            onclick="showPage('profile')"
+            class="nav-btn"
+            id="nav-profile"
+          >
+            👤 Profil
+          </button>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content" id="main-content">
+        <!-- Content will be loaded here -->
+      </main>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Nabila Streams</h3>
+            <p>Platform musik dan video terdepan di Indonesia</p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Fitur</h4>
+            <ul>
+              <li><a href="#" onclick="showPage('upload')">Upload Video</a></li>
+              <li>
+                <a href="#" onclick="showPage('submit-music')">Kirim Musik</a>
+              </li>
+              <li><a href="#" onclick="showPage('gallery')">Galeri</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Bantuan</h4>
+            <ul>
+              <li>
+                <a href="https://wa.me/085810526151" target="_blank"
+                  >WhatsApp Support</a
+                >
+              </li>
+              <li>
+                <a href="mailto:jesikamahjong@gmail.com">Email Support</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Pembayaran</h4>
+            <p>Gopay: 0895340205302</p>
+            <p>WhatsApp: 085810526151</p>
+          </div>
+        </div>
+
+        <div
+          style="
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+          "
+        >
+          <p>&copy; 2025 Nabila Streams. Powered by Supabase & AI.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+      <span id="notification-message"></span>
+    </div>
+
+    <script>
+      // Data
+      const videosData = [
+        {
+          id: "1",
+          title: "The Queen Of Pretend - Nabila Ahmad",
+          description:
+            "Karya original dari Nabila Ahmad yang penuh emosi dan makna mendalam",
+          mux_id: "nrGPqEXrU02JhcpNIJLDaRWmzspYWBBJVFBYyxqOPYhQ",
+          views: 1250,
+          likes: 89,
+          category: "music",
+        },
+        {
+          id: "2",
+          title: "Love Poem (Puisi Cinta) - Nabila Ahmad",
+          description: "Sebuah puisi cinta yang dituangkan dalam melodi indah",
+          mux_id: "00rta8D86Qo38wDHr4dxZsRazLP00TIOaffDz00J3JLQfA",
+          views: 892,
+          likes: 67,
+          category: "music",
+        },
+        {
+          id: "3",
+          title: "The Pleasure Of Love - Nabila Ahmad",
+          description: "Lirik yang mengekspresikan kebahagiaan dalam cinta",
+          mux_id: "1oAIOhbqkWrE31eLdVvZJMcnF02a7Uusdz22YlBcfhxg",
+          views: 1456,
+          likes: 112,
+          category: "music",
+        },
+        {
+          id: "4",
+          title: "Drunk Confessions - Nabila Ahmad",
+          description:
+            "Pengakuan jujur yang diungkapkan dengan musik yang menyentuh",
+          mux_id: "AVQFBySki3O6RCgxTmvbd5KjOcV9pgKbGHJw2YP23kw",
+          views: 743,
+          likes: 54,
+          category: "music",
+        },
+        {
+          id: "5",
+          title: "Broken Home Anthem - Nabila Ahmad",
+          description:
+            "Lagu yang menggambarkan realitas kehidupan keluarga yang tidak sempurna",
+          mux_id: "YDigUoNU01wIo2Z1OGPYGx3RZfyOs2dNFUacSIOHc6NU",
+          views: 2103,
+          likes: 178,
+          category: "music",
+        },
+      ];
+
+      const musicData = [
+        {
+          id: "6",
+          title: "Secangkir Kopi Dan Sepotong Roti",
+          artist: "Nabila Ahmad",
+          genre: "Folk",
+          description: "Lagu tentang kesederhanaan hidup yang penuh makna",
+          mux_id: "A5Qf02aZgpvj2Wcbeg5AUJj2zcr4gbMhVqcnIy6EAvew",
+          cover: "https://via.placeholder.com/300x300/ff2e63/ffffff?text=☕",
+        },
+        {
+          id: "7",
+          title: "Setiaku Disisimu",
+          artist: "Nabila Ahmad",
+          genre: "Pop",
+          description: "Lagu cinta yang mengungkapkan kesetiaan dan komitmen",
+          mux_id: "bj8sP402WcY202rDhb2iZxvVLr00PKUL700GE01XSsl02dNSI",
+          cover: "https://via.placeholder.com/300x300/fb5283/ffffff?text=💕",
+        },
+        {
+          id: "8",
+          title: "Wanita Penjual Sayur",
+          artist: "Nabila Ahmad",
+          genre: "Folk",
+          description: "Cerita tentang perjuangan seorang wanita pekerja keras",
+          mux_id: "uasya8CBIMhSRhMjr02PowcFYAdtRUlGicZy01ejmIv2o",
+          cover: "https://via.placeholder.com/300x300/28a745/ffffff?text=🥬",
+        },
+        {
+          id: "9",
+          title: "Janda Nakal Pencuri Suami",
+          artist: "Nabila Ahmad",
+          genre: "Comedy",
+          description: "Lagu dengan sentuhan humor tentang realitas sosial",
+          mux_id: "YS3dhhygPnMl6F00ea02OztJ8WZIi7pT9KfzJIrPqzoHE",
+          cover: "https://via.placeholder.com/300x300/ffc107/ffffff?text=😄",
+        },
+      ];
+
+      let currentPage = "home";
+      let isAdmin = false;
+
+      // Page Navigation
+      function showPage(page) {
+        currentPage = page;
+        updateNavigation(page);
+
+        const content = document.getElementById("main-content");
+
+        switch (page) {
+          case "home":
+            content.innerHTML = renderHomePage();
+            break;
+          case "gallery":
+            content.innerHTML = renderGalleryPage();
+            break;
+          case "submit-music":
+            content.innerHTML = renderSubmitMusicPage();
+            break;
+          case "upload":
+            content.innerHTML = renderUploadPage();
+            break;
+          case "profile":
+            content.innerHTML = renderProfilePage();
+            break;
+          case "admin":
+            content.innerHTML = renderAdminPage();
+            break;
+          default:
+            content.innerHTML = renderHomePage();
+        }
+      }
+
+      function updateNavigation(activePage) {
+        document
+          .querySelectorAll(".nav-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        const activeBtn = document.getElementById(`nav-${activePage}`);
+        if (activeBtn) activeBtn.classList.add("active");
+      }
+
+      // Page Renderers
+      function renderHomePage() {
+        return `
+        <section>
+          <h2 class="section-title">🎥 Video Terbaru</h2>
+          <div class="content-grid">
+            ${videosData
+              .map(
+                (video) => `
+              <div class="content-card">
+                <div class="video-container">
+                  <video controls poster="https://image.mux.com/${video.mux_id}/thumbnail.jpg" preload="metadata">
+                    <source src="https://stream.mux.com/${video.mux_id}.m3u8" type="application/x-mpegURL">
+                    <p>Browser Anda tidak mendukung video player. <a href="https://stream.mux.com/${video.mux_id}.m3u8">Download video</a></p>
+                  </video>
+                </div>
+                <div class="card-info">
+                  <div class="card-title">${video.title}</div>
+                  <div class="card-description">${video.description}</div>
+                  <div class="card-stats">
+                    <span>👁️ ${video.views.toLocaleString()}</span>
+                    <span>❤️ ${video.likes}</span>
+                    <span>📅 2025</span>
+                  </div>
+                  <div class="card-actions">
+                    <button onclick="likeContent('${video.id}', 'video')" class="card-btn">❤️ Like</button>
+                    <button onclick="shareContent('${video.title}')" class="card-btn">🔗 Share</button>
+                    <button onclick="buyContent('${video.title}', 5000)" class="card-btn">💰 Beli Rp 5.000</button>
+                  </div>
+                </div>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">🎵 Rilisan Musik</h2>
+          <div class="content-grid">
+            ${musicData
+              .map(
+                (song) => `
+              <div class="content-card">
+                <div class="video-container">
+                  <img src="${song.cover}" alt="${song.title}" loading="lazy">
+                </div>
+                <div class="card-info">
+                  <div class="card-title">${song.title}</div>
+                  <div class="card-description">by ${song.artist}</div>
+                  <div class="genre-tag">${song.genre}</div>
+                  <div class="card-description">${song.description}</div>
+                  <video controls preload="none" style="width: 100%; height: 40px; margin: 1rem 0;">
+                    <source src="https://stream.mux.com/${song.mux_id}.m3u8" type="application/x-mpegURL">
+                    <p>Browser Anda tidak mendukung audio player.</p>
+                  </video>
+                  <div class="card-actions">
+                    <button onclick="likeContent('${song.id}', 'music')" class="card-btn">❤️ Like</button>
+                    <button onclick="shareContent('${song.title}')" class="card-btn">🔗 Share</button>
+                    <button onclick="addToPlaylist('${song.id}')" class="card-btn">➕ Playlist</button>
+                  </div>
+                </div>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
+        </section>
+      `;
+      }
+
+      function renderGalleryPage() {
+        const allContent = [...videosData, ...musicData];
+        return `
+        <div>
+          <h2 class="section-title">🖼️ Galeri Konten</h2>
+          
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <button onclick="filterGallery('all')" class="card-btn" style="margin: 0.25rem;">Semua</button>
+            <button onclick="filterGallery('videos')" class="card-btn" style="margin: 0.25rem;">🎥 Video</button>
+            <button onclick="filterGallery('music')" class="card-btn" style="margin: 0.25rem;">🎵 Musik</button>
+          </div>
+
+          <div class="content-grid" id="gallery-grid">
+            ${allContent
+              .map(
+                (item) => `
+              <div class="content-card gallery-item" data-type="${item.category || "music"}">
+                <div class="video-container">
+                  ${
+                    item.mux_id && item.category
+                      ? `
+                    <video controls poster="https://image.mux.com/${item.mux_id}/thumbnail.jpg" preload="metadata">
+                      <source src="https://stream.mux.com/${item.mux_id}.m3u8" type="application/x-mpegURL">
+                    </video>
+                  `
+                      : `
+                    <img src="${item.cover}" alt="${item.title}" loading="lazy">
+                  `
+                  }
+                </div>
+                <div class="card-info">
+                  <div class="card-title">${item.title}</div>
+                  <div class="card-description">${item.description || `by ${item.artist} • ${item.genre}`}</div>
+                  ${item.views ? `<div class="card-stats"><span>👁️ ${item.views.toLocaleString()}</span><span>❤️ ${item.likes}</span></div>` : ""}
+                </div>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
+
+          <div class="admin-grid" style="margin-top: 3rem;">
+            <div class="admin-card">
+              <div class="admin-icon">📹</div>
+              <h3>${videosData.length}</h3>
+              <p>Total Video</p>
+            </div>
+            <div class="admin-card">
+              <div class="admin-icon">🎵</div>
+              <h3>${musicData.length}</h3>
+              <p>Total Musik</p>
+            </div>
+            <div class="admin-card">
+              <div class="admin-icon">👥</div>
+              <h3>1</h3>
+              <p>Kreator Aktif</p>
+            </div>
+          </div>
+        </div>
+      `;
+      }
+
+      function renderSubmitMusicPage() {
+        return `
+        <div>
+          <h2 class="section-title">🎵 Kirim Rilisan Musik</h2>
+          <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 2rem;">
+            Bagikan karya musik Anda dengan dunia! Tim kami akan review dalam 24-48 jam.
+          </p>
+          
+          <div class="form-container">
+            <form onsubmit="submitMusic(event)">
+              <div class="form-group">
+                <label class="form-label">Nama Artis *</label>
+                <input type="text" class="form-input" required placeholder="Masukkan nama artis">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email Artis *</label>
+                <input type="email" class="form-input" required placeholder="email@example.com">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Judul Lagu *</label>
+                <input type="text" class="form-input" required placeholder="Masukkan judul lagu">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Genre *</label>
+                <select class="form-select" required>
+                  <option value="">Pilih Genre</option>
+                  <option value="pop">Pop</option>
+                  <option value="rock">Rock</option>
+                  <option value="jazz">Jazz</option>
+                  <option value="blues">Blues</option>
+                  <option value="country">Country</option>
+                  <option value="electronic">Electronic</option>
+                  <option value="hip-hop">Hip Hop</option>
+                  <option value="r&b">R&B</option>
+                  <option value="indie">Indie</option>
+                  <option value="folk">Folk</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Deskripsi Lagu</label>
+                <textarea class="form-textarea" placeholder="Ceritakan tentang lagu Anda..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">File Audio *</label>
+                <input type="file" class="form-input" accept="audio/*" required>
+                <small style="color: rgba(255,255,255,0.6);">Format: MP3, WAV, FLAC (Max 50MB)</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Cover Art</label>
+                <input type="file" class="form-input" accept="image/*">
+                <small style="color: rgba(255,255,255,0.6);">Format: JPG, PNG (Rekomendasi: 1400x1400px)</small>
+              </div>
+
+              <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                  <input type="checkbox" required>
+                  <span>Saya menyatakan bahwa ini adalah karya original saya</span>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                  <input type="checkbox" required>
+                  <span>Saya setuju dengan syarat dan ketentuan platform</span>
+                </label>
+              </div>
+
+              <button type="submit" class="form-btn">🚀 Kirim Rilisan</button>
+            </form>
+          </div>
+        </div>
+      `;
+      }
+
+      function renderUploadPage() {
+        return `
+        <div>
+          <h2 class="section-title">📤 Upload Konten</h2>
+          <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 2rem;">
+            Bagikan video atau foto Anda dengan dunia!
+          </p>
+          
+          <div class="form-container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+              <button onclick="showUploadTab('video')" class="card-btn" style="margin: 0.5rem;" id="tab-video">🎥 Video</button>
+              <button onclick="showUploadTab('photo')" class="card-btn" style="margin: 0.5rem;" id="tab-photo">📷 Foto</button>
+            </div>
+
+            <form onsubmit="submitUpload(event)" id="upload-form">
+              <div class="form-group">
+                <label class="form-label">Judul *</label>
+                <input type="text" class="form-input" required placeholder="Masukkan judul konten">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Deskripsi</label>
+                <textarea class="form-textarea" placeholder="Deskripsikan konten Anda..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Kategori *</label>
+                <select class="form-select" required>
+                  <option value="">Pilih Kategori</option>
+                  <option value="music">Musik</option>
+                  <option value="entertainment">Hiburan</option>
+                  <option value="education">Edukasi</option>
+                  <option value="lifestyle">Gaya Hidup</option>
+                  <option value="comedy">Komedi</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="file-group">
+                <label class="form-label">File *</label>
+                <input type="file" class="form-input" required accept="video/*,image/*">
+                <small style="color: rgba(255,255,255,0.6);">Video: MP4, MOV, AVI (Max 500MB) | Foto: JPG, PNG, GIF (Max 10MB)</small>
+              </div>
+
+              <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                  <input type="checkbox" id="monetize">
+                  <span>💰 Aktifkan Monetisasi</span>
+                </label>
+              </div>
+
+              <div class="form-group" id="price-group" style="display: none;">
+                <label class="form-label">Harga (Rp)</label>
+                <input type="number" class="form-input" min="1000" max="100000" placeholder="Masukkan harga antara Rp 1.000 - Rp 100.000">
+              </div>
+
+              <button type="submit" class="form-btn">🚀 Upload Konten</button>
+            </form>
+          </div>
+        </div>
+      `;
+      }
+
+      function renderProfilePage() {
+        return `
+        <div>
+          <h2 class="section-title">👤 Profil Saya</h2>
+          
+          <div class="profile-container">
+            <div class="profile-avatar">👤</div>
+            <h3>Kreator Nabila Streams</h3>
+            <p style="color: rgba(255,255,255,0.7); margin: 1rem 0;">
+              Selamat datang di profil Anda. Kelola konten dan pantau performa di sini.
+            </p>
+            
+            <div class="profile-stats">
+              <div class="stat-item">
+                <span class="stat-number">0</span>
+                <span class="stat-label">Pengikut</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">0</span>
+                <span class="stat-label">Mengikuti</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">Rp 0</span>
+                <span class="stat-label">Saldo</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0;">
+              <button onclick="showNotification('Fitur edit profil akan segera hadir!', 'success')" class="card-btn">✏️ Edit Profil</button>
+              <button onclick="showNotification('Fitur withdraw akan segera hadir!', 'success')" class="card-btn">💰 Withdraw</button>
+              <button onclick="showNotification('Fitur topup akan segera hadir!', 'success')" class="card-btn">💳 Topup</button>
+            </div>
+
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+              <h4 style="margin-bottom: 1rem;">Konten Saya</h4>
+              <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <div class="stat-item">
+                  <span class="stat-number">0</span>
+                  <span class="stat-label">Video</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">0</span>
+                  <span class="stat-label">Musik</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">0</span>
+                  <span class="stat-label">Foto</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      }
+
+      function renderAdminPage() {
+        if (!isAdmin) {
+          return `
+          <div>
+            <h2 class="section-title">🔐 Akses Terbatas</h2>
+            <div class="profile-container">
+              <p>Anda perlu login sebagai admin untuk mengakses halaman ini.</p>
+              <button onclick="showAdminLogin()" class="form-btn">👑 Login Admin</button>
+            </div>
+          </div>
+        `;
+        }
+
+        return `
+        <div>
+          <h2 class="section-title">👑 Panel Admin</h2>
+          
+          <div class="admin-grid">
+            <div class="admin-card">
+              <div class="admin-icon">📋</div>
+              <h3>0</h3>
+              <p>Konten Review</p>
+              <small style="color: rgba(255,255,255,0.6);">Menunggu approve</small>
+            </div>
+            <div class="admin-card">
+              <div class="admin-icon">💰</div>
+              <h3>Rp 0</h3>
+              <p>Total Transaksi</p>
+              <small style="color: rgba(255,255,255,0.6);">Hari ini</small>
+            </div>
+            <div class="admin-card">
+              <div class="admin-icon">👥</div>
+              <h3>1</h3>
+              <p>Pengguna Aktif</p>
+              <small style="color: rgba(255,255,255,0.6);">Online sekarang</small>
+            </div>
+          </div>
+
+          <div class="form-container" style="margin-top: 2rem;">
+            <h3 style="text-align: center; margin-bottom: 2rem;">⚙️ Pengaturan Platform</h3>
+            
+            <div class="form-group">
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" checked>
+                <span>🤖 AI Moderation Aktif</span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Komisi Platform (%)</label>
+              <input type="number" class="form-input" value="10" min="0" max="50">
+            </div>
+
+            <div style="background: rgba(255,46,99,0.1); padding: 1.5rem; border-radius: 15px; margin: 2rem 0;">
+              <h4 style="margin-bottom: 1rem;">💳 Informasi Pembayaran</h4>
+              <p><strong>Gopay:</strong> 0895340205302</p>
+              <p><strong>WhatsApp:</strong> 085810526151</p>
+              <p style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+                Semua transaksi akan diarahkan ke nomor di atas untuk verifikasi manual.
+              </p>
+            </div>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <button onclick="showNotification('Pengaturan disimpan!', 'success')" class="form-btn" style="flex: 1;">💾 Simpan Pengaturan</button>
+              <button onclick="adminLogout()" class="card-btn" style="background: rgba(220,53,69,0.2); border-color: rgba(220,53,69,0.3);">🚪 Logout</button>
+            </div>
+          </div>
+        </div>
+      `;
+      }
+
+      // Utility Functions
+      function showNotification(message, type = "success") {
+        const notification = document.getElementById("notification");
+        const messageEl = document.getElementById("notification-message");
+
+        notification.className = `notification ${type}`;
+        messageEl.textContent = message;
+        notification.style.display = "block";
+
+        setTimeout(() => {
+          notification.style.display = "none";
+        }, 4000);
+      }
+
+      function likeContent(id, type) {
+        showNotification(
+          `${type === "video" ? "Video" : "Musik"} berhasil dilike! ❤️`,
+          "success",
+        );
+      }
+
+      function shareContent(title) {
+        if (navigator.share) {
+          navigator.share({
+            title: title,
+            text: `Lihat ${title} di Nabila Streams`,
+            url: window.location.href,
+          });
+        } else {
+          navigator.clipboard.writeText(`${title} - ${window.location.href}`);
+          showNotification("Link berhasil disalin ke clipboard! 🔗", "success");
+        }
+      }
+
+      function buyContent(title, price) {
+        const message = `Halo admin, saya ingin membeli "${title}" seharga Rp ${price.toLocaleString()}`;
+        const whatsappUrl = `https://wa.me/085810526151?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, "_blank");
+        showNotification(
+          "Anda akan diarahkan ke WhatsApp untuk pembayaran.",
+          "success",
+        );
+      }
+
+      function addToPlaylist(id) {
+        showNotification("Musik ditambahkan ke playlist! 🎵", "success");
+      }
+
+      function searchContent(query) {
+        if (!query.trim()) {
+          showNotification("Masukkan kata kunci pencarian", "warning");
+          return;
+        }
+        showNotification(`Mencari: "${query}"...`, "success");
+      }
+
+      function filterGallery(type) {
+        const items = document.querySelectorAll(".gallery-item");
+        items.forEach((item) => {
+          if (type === "all" || item.dataset.type === type) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
+
+      function showUploadTab(type) {
+        const fileInput = document.querySelector("#file-group input");
+        const priceGroup = document.getElementById("price-group");
+        const monetizeCheck = document.getElementById("monetize");
+
+        if (type === "video") {
+          fileInput.accept = "video/*";
+          document.getElementById("tab-video").style.background =
+            "rgba(255, 46, 99, 0.4)";
+          document.getElementById("tab-photo").style.background =
+            "rgba(255, 46, 99, 0.2)";
+        } else {
+          fileInput.accept = "image/*";
+          document.getElementById("tab-photo").style.background =
+            "rgba(255, 46, 99, 0.4)";
+          document.getElementById("tab-video").style.background =
+            "rgba(255, 46, 99, 0.2)";
+        }
+
+        monetizeCheck.addEventListener("change", function () {
+          priceGroup.style.display = this.checked ? "block" : "none";
+        });
+      }
+
+      function submitMusic(event) {
+        event.preventDefault();
+        showNotification(
+          "Rilisan musik berhasil dikirim! Tim kami akan review dalam 24-48 jam. 🎵",
+          "success",
+        );
+        setTimeout(() => showPage("home"), 2000);
+      }
+
+      function submitUpload(event) {
+        event.preventDefault();
+        showNotification(
+          "Konten berhasil diupload! Menunggu review admin. 📤",
+          "success",
+        );
+        setTimeout(() => showPage("home"), 2000);
+      }
+
+      function showAdminLogin() {
+        const email = prompt("Email Admin:", "jesikamahjong@gmail.com");
+        const password = prompt("Password:", "axis2019");
+
+        if (email === "jesikamahjong@gmail.com" && password === "axis2019") {
+          isAdmin = true;
+          showNotification("Login admin berhasil! 👑", "success");
+          showPage("admin");
+        } else if (email && password) {
+          showNotification("Email atau password salah!", "error");
+        }
+      }
+
+      function adminLogout() {
+        isAdmin = false;
+        showNotification("Logout berhasil!", "success");
+        showPage("home");
+      }
+
+      // Initialize App
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("🎵 Nabila Streams loaded successfully!");
+        showPage("home");
+
+        // Show welcome message
+        setTimeout(() => {
+          showNotification("Selamat datang di Nabila Streams! 🎵", "success");
+        }, 1000);
+      });
+
+      // Global error handler
+      window.addEventListener("error", function (e) {
+        console.error("Error:", e.error);
+        showNotification(
+          "Terjadi kesalahan. Halaman akan dimuat ulang.",
+          "error",
+        );
+      });
+
+      // Service worker registration
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .catch((e) => console.log("SW registration failed"));
+      }
+    </script>
+  </body>
+</html>
